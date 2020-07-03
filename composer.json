@@ -28,7 +28,8 @@
         "symfony/var-dumper": "^4.2",
         "topthink/think-trace":"^1.0",
         "phpunit/phpunit": "^8.5",
-        "guzzlehttp/guzzle": "^6.5"
+        "guzzlehttp/guzzle": "^6.5",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

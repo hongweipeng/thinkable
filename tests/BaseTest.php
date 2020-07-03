@@ -26,6 +26,10 @@ class BaseTest extends TestCase {
         $this->assertEquals(200, $response->getStatusCode(), (string) $response->getBody());
     }
 
+    public function test_true() {
+        $this->assertEquals(true, true);
+    }
+
 }
 
 
