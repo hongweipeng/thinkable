@@ -17,6 +17,20 @@ class IndexTest extends BaseTest {
         $this->verify_response($client->get('index.php/index/index'));
     }
 
+    public function test_hello() {
+        $client = $this->new_client();
+        $response = $client->get('index.php/index/hello', ['http_errors' => false]);
+        // hello 因设置了路由，用常用的方式访问将是 404
+        $this->assertEquals(404, $response->getStatusCode());
+
+        /* 使用路由方式访问 */
+        $response = $client->get('index.php/hello', ['http_errors' => false]); // 无参数访问，将得到404
+        $this->assertEquals(404, $response->getStatusCode());
+
+        $response = $client->get('index.php/hello/custom_name');   // 定义key
+        $this->assertEquals('hello,custom_name', (string) $response->getBody());
+    }
+
     public function test_404() {
         $client = $this->new_client();
 
