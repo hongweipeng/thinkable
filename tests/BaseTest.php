@@ -30,7 +30,7 @@ class BaseTest extends TestCase {
         $this->assertEquals(200, $response->getStatusCode(), $message);
     }
 
-    public function run_controller_unit(BaseController $controller) {
+    public function run_controller_unit(BaseController $controller, TestCase $unit) {
         $class = new \ReflectionClass($controller);
 //        var_dump($class->inNamespace());
 //        var_dump($class->getName());
@@ -41,8 +41,14 @@ class BaseTest extends TestCase {
         foreach ($class->getMethods() as $method) {
             // 方法名是否以 test 开头
             if (strpos($method->name, 'test') === 0) {
+                $options = ['http_errors' => false, 'headers' => []];
+                $client = $this->new_client();
                 $url = sprintf('index.php/%s/%s', $controller_name, strtolower($method->name));
-                $response = $this->new_client()->get($url, ['http_errors' => false]);
+                // 判断是否需要额外配置项
+                if (method_exists($unit, 'ext_config_' . $method->name)) {
+                    $unit->{'ext_config_' . $method->name}($client, $options);
+                }
+                $response = $client->get($url, $options);
                 $this->verify_response($response, "{$controller_name}->{$method->name}:{$response->getBody()}");
             }
         }

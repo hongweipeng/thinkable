@@ -2,6 +2,7 @@
 namespace tests;
 
 
+use app\controller\Issue;
 use app\controller\UrlBuild;
 use think\App;
 
@@ -14,6 +15,7 @@ class SimpleControllerTest extends BaseTest {
 
     public function test_url() {
         $controller = new UrlBuild(new App());
-        $this->run_controller_unit($controller);
+        $this->run_controller_unit($controller, $this);
     }
+
 }

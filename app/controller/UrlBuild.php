@@ -24,4 +24,11 @@ class UrlBuild extends BaseController {
         assertEquals($_SERVER['HTTP_HOST'], $parser['host'], $url);
     }
 
+    // 带参数的 url 生成
+    public function test_url_params() {
+        $params = ['name' => 'Tom', 'age' => 18];
+        $url = url('/', $params)->build();
+        assertTrue(strpos($url, http_build_query($params)) !== false, $url);
+    }
+
 }
