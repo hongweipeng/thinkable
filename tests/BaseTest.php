@@ -49,7 +49,7 @@ class BaseTest extends TestCase {
                     $unit->{'ext_config_' . $method->name}($client, $options);
                 }
                 $response = $client->get($url, $options);
-                $this->verify_response($response, "{$controller_name}->{$method->name}:{$response->getBody()}");
+                $this->verify_response($response, "{$url}:{$controller_name}->{$method->name}:{$response->getBody()}");
             }
         }
 
