@@ -15,3 +15,5 @@ Route::get('think', function () {
 });
 
 Route::get('hello/:name', 'index/hello');
+
+Route::any('faker_controller/:id','index/blog/read');
