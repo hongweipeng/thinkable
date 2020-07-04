@@ -20,7 +20,7 @@ class Issue extends BaseController
         assertTrue(strpos($url, $expected) !== false, $url);
     }
 
-    public function test_issue14553() {
+    public function test_issue1453() {
         $expected = '/faker_controller/1.html'; // need by set: Route::any('faker_controller/:id','index/blog/read');
 
         // 当前域名
