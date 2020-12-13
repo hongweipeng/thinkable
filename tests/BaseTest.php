@@ -9,7 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 class BaseTest extends TestCase {
-    static $BASE_URL = 'http://localhost/thinkable/public/';
+    static $BASE_URL = 'http://dev.weapon.vip/thinkable/public/';
 
     public function new_client() {
         $client = new Client([
@@ -48,6 +48,7 @@ class BaseTest extends TestCase {
                 if (method_exists($unit, 'ext_config_' . $method->name)) {
                     $unit->{'ext_config_' . $method->name}($client, $options);
                 }
+                echo $url;
                 $response = $client->get($url, $options);
                 $this->verify_response($response, "{$url}:{$controller_name}->{$method->name}:{$response->getBody()}");
             }

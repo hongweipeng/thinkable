@@ -29,9 +29,10 @@ class Issue extends BaseController
 
         //  子域名
         $url = url('index/blog/read', ['id' => 1])->domain('sub_domain')->build();
-        assertTrue(
-            strpos($url, sprintf('/%s.%s/', 'sub_domain', $_SERVER['HTTP_HOST']))
-            && strpos($url, $expected), $url);
+        if (strpos( $_SERVER['HTTP_HOST'], '.') === false) {
+            assertTrue(strpos($url, sprintf('/%s.%s/', 'sub_domain', $_SERVER['HTTP_HOST'])), $url);
+        }
+        assertTrue(strpos($url, $expected), $url);
 
         // 其他域名生成
         $test_domains = [
